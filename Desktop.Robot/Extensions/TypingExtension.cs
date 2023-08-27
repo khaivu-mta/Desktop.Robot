@@ -53,5 +53,19 @@ namespace Desktop.Robot.Extensions
 
             return robot;
         }
+        public static IRobot HoldShiftAndType(this IRobot robot, string text, int delay)
+        {
+            Thread.Sleep(robot.AutoDelay);
+            var currentDelay = robot.AutoDelay;
+            robot.AutoDelay = delay;
+            robot.KeyDown(Key.Shift);
+            foreach (var ch in text)
+            {
+                robot.KeyPress(ch);
+            }
+            robot.KeyUp(Key.Shift);
+            robot.AutoDelay = currentDelay;
+            return robot;
+        }
     }
 }
